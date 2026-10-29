@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glow & Grace Jewellery | Anti-Tarnish & Minimalist Jewellery Pune</title>
+    <meta name="description" content="Everyday anti-tarnish 18K gold-plated and minimalist jewellery in Pune by Fiaa Shaikh. Waterproof, hypoallergenic, and budget-friendly accessories.">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#FAF8F5',
+                            100: '#F5F0E6',
+                            200: '#E8E2D5',
+                            300: '#EEDC9A',
+                            500: '#C59B27',
+                            600: '#A37F1D',
+                            800: '#38322D',
+                            900: '#201D1A',
+                        },
+                        wa: {
+                            500: '#25D366',
+                            600: '#1eb956'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Cormorant Garamond', 'Georgia', 'serif'],
+                        sans: ['DM Sans', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Alpine.js for lightweight state management -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <style>
+        :root {
+            --bg-color: #FAF8F5;
+            --text-dark: #201D1A;
+            --brand-gold: #C59B27;
+            --accent-soft: #EEDC9A;
+            --neutral-border: #E8E2D5;
+            --white: #FCFBF9;
+            --whatsapp-green: #25D366;
+            --font-heading: 'Cormorant Garamond', Georgia, serif;
+            --font-body: 'DM Sans', system-ui, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            font-family: var(--font-body);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, .font-serif {
+            font-family: var(--font-heading);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-color);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--brand-gold);
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body x-data="appState()" class="antialiased selection:bg-brand-300 selection:text-brand-900 pb-16 md:pb-0">
+
+    <!-- Top Announcement Strip -->
+    <div class="bg-brand-900 text-brand-100 text-xs sm:text-sm py-2 px-4 text-center font-medium flex justify-center items-center gap-2">
+        <svg class="w-4 h-4 text-brand-500 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+        <span>Free Velvet Gift Box on all orders above ₹799 • Same-Day Dispatch in Pune!</span>
+    </div>
+
+    <!-- STICKY HEADER -->
+    <header class="sticky top-0 z-40 bg-brand-50/95 backdrop-blur-md border-b border-brand-200 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Brand Logo -->
+                <a href="#" class="flex flex-col">
+                    <span class="font-serif text-2xl sm:text-3xl font-bold tracking-wider text-brand-500">GLOW & GRACE</span>
+                    <span class="text-[10px] uppercase tracking-[0.2em] text-brand-900/70 -mt-1 font-semibold">Jewellery • Pune</span>
+                </a>
+
+                <!-- Desktop Nav Links -->
+                <nav class="hidden md:flex items-center space-x-8 text-sm font-medium">
+                    <a href="#hero" class="hover:text-brand-500 transition-colors">Home</a>
+                    <a href="#collection" class="hover:text-brand-500 transition-colors">Collection</a>
+                    <a href="#about" class="hover:text-brand-500 transition-colors">Our Story</a>
+                    <a href="#gallery" class="hover:text-brand-500 transition-colors">Gallery</a>
+                    <a href="#pricing" class="hover:text-brand-500 transition-colors">Price List</a>
+                    <a href="#contact" class="hover:text-brand-500 transition-colors">Visit Us</a>
+                </nav>
+
+                <!-- Desktop CTAs -->
+                <div class="hidden md:flex items-center space-x-3">
+                    <!-- Cart Trigger -->
+                    <button @click="cartOpen = true" class="relative p-2.5 rounded-full border border-brand-200 text-brand-900 hover:bg-brand-100 transition-colors">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+                        <span x-show="cart.length > 0" x-text="cart.length" class="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-brand-500 text-white text-[11px] font-bold flex items-center justify-center">0</span>
+                    </button>
+
+                    <a href="tel:+918308408093" class="px-4 py-2 rounded border border-brand-500 text-brand-900 hover:bg-brand-500 hover:text-white transition-all text-sm font-semibold flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                        Call
+                    </a>
+                    <a href="https://wa.me/918308408093?text=Hi%20Glow%20%26%20Grace%2C%20I%20would%20like%20to%20inquire%20about%20your%20anti-tarnish%20collection." class="px-4 py-2 rounded bg-wa-500 hover:bg-wa-600 text-white transition-all text-sm font-semibold flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2z"/></svg>
+                        WhatsApp
+                    </a>
+                </div>
+
+                <!-- Mobile Header Right Side -->
+                <div class="flex md:hidden items-center space-x-2">
+                    <button @click="cartOpen = true" class="relative p-2 rounded-full border border-brand-200 text-brand-900">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+                        <span x-show="cart.length > 0" x-text="cart.length" class="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-brand-500 text-white text-[10px] font-bold flex items-center justify-center">0</span>
+                    </button>
+                    <button @click="mobileMenu = !mobileMenu" class="p-2 text-brand-900 focus:outline-none">
+                        <svg x-show="!mobileMenu" class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                        <svg x-show="mobileMenu" class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Drawer -->
+        <div x-show="mobileMenu" x-transition class="md:hidden bg-brand-50 border-b border-brand-200 px-6 py-4 space-y-3">
+            <a @click="mobileMenu = false" href="#hero" class="block py-2 border-b border-brand-200/50 font-medium">Home</a>
+            <a @click="mobileMenu = false" href="#collection" class="block py-2 border-b border-brand-200/50 font-medium">Collection</a>
+            <a @click="mobileMenu = false" href="#about" class="block py-2 border-b border-brand-200/50 font-medium">Our Story</a>
+            <a @click="mobileMenu = false" href="#gallery" class="block py-2 border-b border-brand-200/50 font-medium">Gallery</a>
+            <a @click="mobileMenu = false" href="#pricing" class="block py-2 border-b border-brand-200/50 font-medium">Transparent Pricing</a>
+            <a @click="mobileMenu = false" href="#contact" class="block py-2 font-medium">Visit Studio</a>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section id="hero" class="relative py-12 lg:py-24 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-100 border border-brand-200 text-brand-800 text-xs font-semibold uppercase tracking-widest">
+                        <!-- Motif SVG: Heart/Jewels Motif -->
+                        <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                        18K Gold Plated • Waterproof • Sweatproof
+                    </div>
+
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-brand-900 leading-tight">
+                        Shine Every Day, <br>Tarnish Never!
+                    </h1>
+
+                    <p class="text-base sm:text-lg text-brand-800/80 max-w-xl mx-auto lg:mx-0 font-normal leading-relaxed">
+                        Trendy, affordable 18K gold-plated jewellery designed for Pune’s daily college, work, and monsoon wear without losing its brilliant golden luster.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-2">
+                        <a href="https://wa.me/918308408093?text=Hi%20Fiaa%2C%20I%20want%20to%20explore%20your%20latest%20anti-tarnish%20jewellery%20catalog!" class="px-8 py-4 rounded bg-wa-500 hover:bg-wa-600 text-white font-semibold text-base shadow-lg shadow-wa-500/20 transition-all flex items-center justify-center gap-3">
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2z"/></svg>
+                            Explore via WhatsApp
+                        </a>
+                        <a href="tel:+918308408093" class="px-8 py-4 rounded border-2 border-brand-500 text-brand-900 hover:bg-brand-500 hover:text-white font-semibold text-base transition-all flex items-center justify-center gap-3">
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                            Call Studio Direct
+                        </a>
+                    </div>
+
+                    <!-- Trust Micro Line -->
+                    <div class="pt-6 flex items-center justify-center lg:justify-start gap-3 text-xs sm:text-sm text-brand-800/70 font-medium">
+                        <svg class="w-5 h-5 text-brand-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                        <span>Loved by 500+ women in Shivajinagar, FC Road, & Kothrud</span>
+                    </div>
+                </div>
+
+                <!-- Hero Visual -->
+                <div class="lg:col-span-5 relative">
+                    <div class="relative mx-auto max-w-md lg:max-w-none">
+                        <div class="aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl border-4 border-white/80 bg-brand-100">
+                            <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800&auto=format&fit=crop" alt="Glow and Grace Gold Necklace Collection" class="w-full h-full object-cover">
+                        </div>
+                        
+                        <!-- Floating Trust Badge -->
+                        <div class="absolute -bottom-6 -left-4 sm:-left-6 bg-white/95 backdrop-blur-sm p-4 sm:p-5 rounded-xl shadow-xl border border-brand-200 flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-full bg-brand-100 flex items-center justify-center text-brand-500 font-serif font-bold text-xl border border-brand-300">
+                                18K
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sm text-brand-900">Anti-Tarnish Guarantee</h4>
+                                <p class="text-xs text-brand-800/70">Hypoallergenic Stainless Steel Core</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- TRUST STRIP -->
+    <section class="bg-white border-y border-brand-200 py-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div class="p-4">
+                    <div class="font-serif text-3xl sm:text-4xl font-bold text-brand-500">100%</div>
+                    <div class="text-xs sm:text-sm font-semibold text-brand-900/80 mt-1 uppercase tracking-wider">Anti-Tarnish Guarantee</div>
+                </div>
+                <div class="p-4">
+                    <div class="font-serif text-3xl sm:text-4xl font-bold text-brand-500">₹149+</div>
+                    <div class="text-xs sm:text-sm font-semibold text-brand-900/80 mt-1 uppercase tracking-wider">Starting Price</div>
+                </div>
+                <div class="p-4">
+                    <div class="font-serif text-3xl sm:text-4xl font-bold text-brand-500">500+</div>
+                    <div class="text-xs sm:text-sm font-semibold text-brand-900/80 mt-1 uppercase tracking-wider">Pune Customers</div>
+                </div>
+                <div class="p-4">
+                    <div class="font-serif text-3xl sm:text-4xl font-bold text-brand-500">24hr</div>
+                    <div class="text-xs sm:text-sm font-semibold text-brand-900/80 mt-1 uppercase tracking-wider">Local Pune Dispatch</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCT CATALOG SHOWCASE WITH FILTERING -->
+    <section id="collection" class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <!-- Section Motif Divider -->
+                <div class="flex items-center justify-center gap-3 mb-3">
+                    <span class="w-12 h-px bg-brand-500"></span>
+                    <svg class="w-5 h-5 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                    <span class="w-12 h-px bg-brand-500"></span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-serif font-bold text-brand-900">Everyday Luxury Collection</h2>
+                <p class="text-brand-800/70 text-sm sm:text-base mt-2">Tap any piece to inquire or order directly via WhatsApp.</p>
+            </div>
+
+            <!-- Category Filter Tabs -->
+            <div class="flex flex-wrap justify-center gap-2 sm:gap-3 mb-10">
+                <template x-for="cat in categories" :key="cat.id">
+                    <button 
+                        @click="activeCategory = cat.id"
+                        :class="activeCategory === cat.id ? 'bg-brand-900 text-white shadow-md' : 'bg-white text-brand-900 hover:bg-brand-100 border border-brand-200'"
+                        class="px-5 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all">
+                        <span x-text="cat.name"></span>
+                    </button>
+                </template>
+            </div>
+
+            <!-- Product Cards Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <template x-for="item in filteredProducts" :key="item.id">
+                    <div class="bg-white rounded-xl border border-brand-200 overflow-hidden flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
+                        
+                        <div>
+                            <div class="relative aspect-square overflow-hidden bg-brand-100">
+                                <img :src="item.image" :alt="item.name" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                <span class="absolute top-3 left-3 bg-brand-900/90 text-brand-100 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full backdrop-blur-sm" x-text="item.categoryLabel"></span>
+                            </div>
+                            <div class="p-5">
+                                <div class="flex justify-between items-baseline mb-2">
+                                    <h3 class="font-serif font-bold text-lg text-brand-900" x-text="item.name"></h3>
+                                    <span class="font-serif font-bold text-lg text-brand-500" x-text="'₹' + item.price"></span>
+                                </div>
+                                <p class="text-xs text-brand-800/70 leading-relaxed mb-4" x-text="item.description"></p>
+                            </div>
+                        </div>
+
+                        <div class="p-5 pt-0 space-y-2">
+                            <button 
+                                @click="addToCart(item)"
+                                class="w-full py-2.5 rounded bg-brand-100 hover:bg-brand-200 text-brand-900 text-xs font-semibold transition-colors flex items-center justify-center gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                                Add to Shopping Bag
+                            </button>
+
+                            <a :href="'https://wa.me/918308408093?text=' + encodeURIComponent('Hi Fiaa, I am interested in buying ' + item.name + ' (₹' + item.price + '). Is it available for delivery in Pune?')"
+                               class="w-full py-2.5 rounded bg-wa-500 hover:bg-wa-600 text-white text-xs font-semibold transition-colors flex items-center justify-center gap-2">
+                               <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2z"/></svg>
+                               Order via WhatsApp
+                            </a>
+                        </div>
+
+                    </div>
+                </template>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="py-20 bg-white border-y border-brand-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <div class="lg:col-span-4 text-center">
+                    <div class="w-44 h-44 rounded-full bg-brand-300 border-2 border-brand-500 text-brand-500 font-serif text-5xl font-bold flex items-center justify-center mx-auto mb-4 shadow-lg">
+                        FS
+                    </div>
+                    <h3 class="font-serif text-2xl font-bold text-brand-900">Fiaa Shaikh</h3>
+                    <p class="text-xs uppercase tracking-widest text-brand-800/70 font-semibold mt-1">Founder & Designer • Pune</p>
+                </div>
+
+                <div class="lg:col-span-8 space-y-4">
+                    <div class="flex items-center gap-2 text-brand-500 font-bold text-xs uppercase tracking-widest">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                        Behind Glow & Grace
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-serif font-bold text-brand-900">Designed for Real Pune Weather, Not Just Photo Shoots</h2>
+                    <p class="text-brand-800/80 text-base leading-relaxed">
+                        I started Glow & Grace in Pune back in 2025 after getting tired of watching my favorite gold chains turn dark after just a few weeks of wear. I remember my sister gifting me a delicate gold pendant for my birthday, and within a month of daily college wear and Pune monsoons, it had lost its luster.
+                    </p>
+                    <p class="text-brand-800/80 text-base leading-relaxed">
+                        I realized working women and students in Pune need accessories that can handle humidity, sweat, and daily commute without costing thousands. That is why every single piece in our studio is hand-selected, 18K gold-plated over hypoallergenic steel, and tested for real life.
+                    </p>
+
+                    <!-- Concrete Differentiators -->
+                    <div class="pt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-brand-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            <span class="text-sm font-semibold text-brand-900">100% Sweat & Waterproof</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-brand-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            <span class="text-sm font-semibold text-brand-900">Hypoallergenic & Nickel-Free</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-brand-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            <span class="text-sm font-semibold text-brand-900">Direct Same-Day Local Delivery</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-brand-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            <span class="text-sm font-semibold text-brand-900">Complimentary Velvet Gifting Box</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- LAYOUT-BREAKING BANNER MOMENT -->
+            <div class="mt-16 bg-gradient-to-r from-brand-900 via-brand-800 to-brand-900 text-white p-8 sm:p-12 rounded-2xl border-2 border-brand-500 shadow-2xl flex flex-col lg:flex-row items-center justify-between gap-8">
+                <div class="space-y-2 text-center lg:text-left">
+                    <span class="text-xs uppercase tracking-widest text-brand-300 font-bold">Limited Studio Offer</span>
+                    <h3 class="font-serif text-2xl sm:text-3xl font-bold text-brand-300">Buy Any 2 Pieces, Get a Free Luxury Velvet Pouch</h3>
+                    <p class="text-sm text-brand-100/80">Mix & match any necklaces, hoops, or bracelets today.</p>
+                </div>
+                <a href="https://wa.me/918308408093?text=Hi%20Fiaa%2C%20I%20want%20to%20buy%202%20pieces%20and%20claim%20the%20free%20Velvet%20Gift%20Pouch!" 
+                   class="px-8 py-4 rounded bg-brand-500 hover:bg-brand-600 text-brand-900 font-bold text-sm uppercase tracking-wider transition-all whitespace-nowrap shadow-lg">
+                    Claim Offer on WhatsApp
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- GALLERY SECTION WITH LIGHTBOX MODAL -->
+    <section id="gallery" class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <h2 class="text-3xl sm:text-4xl font-serif font-bold text-brand-900">Studio Gallery</h2>
+                <p class="text-brand-800/70 text-sm sm:text-base mt-2">Tap any photo to expand view.</p>
+            </div>
+
+            <!-- Asymmetric Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                <template x-for="(photo, index) in galleryPhotos" :key="index">
+                    <div 
+                        @click="activeLightbox = photo"
+                        :class="index === 0 || index === 4 ? 'col-span-2 md:col-span-2 aspect-[16/9]' : 'aspect-square'"
+                        class="rounded-xl overflow-hidden border border-brand-200 cursor-pointer group bg-brand-100 relative">
+                        <img :src="photo" alt="Glow and Grace Jewelry" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
+                        <div class="absolute inset-0 bg-brand-900/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white font-semibold text-xs tracking-wider uppercase">
+                            View Close-Up
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+
+        <!-- Lightbox Modal -->
+        <div x-show="activeLightbox" class="fixed inset-0 z-50 bg-brand-900/90 backdrop-blur-md flex items-center justify-center p-4" x-transition @click="activeLightbox = null">
+            <div class="relative max-w-4xl w-full max-h-[90vh] overflow-hidden rounded-2xl border border-brand-500" @click.stop>
+                <button @click="activeLightbox = null" class="absolute top-4 right-4 text-white bg-brand-900/80 p-2 rounded-full hover:bg-brand-500 transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+                <img :src="activeLightbox" alt="Enlarged view" class="w-full h-full object-contain max-h-[85vh] bg-black">
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="py-20 bg-white border-y border-brand-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <h2 class="text-3xl sm:text-4xl font-serif font-bold text-brand-900">Loved by Pune Buyers</h2>
+                <p class="text-brand-800/70 text-sm sm:text-base mt-2">Genuine feedback from local customers.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <div class="bg-brand-50 p-6 sm:p-8 rounded-xl border border-brand-200 flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <div class="flex text-brand-500 gap-1">
+                            <template x-for="i in 5">
+                                <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            </template>
+                        </div>
+                        <p class="text-sm text-brand-800 italic leading-relaxed">
+                            "I have been wearing the gold-plated chain every day to college in FC Road. Even after continuous rain and sweat, it hasn't faded at all."
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-brand-200">
+                        <div class="font-bold text-sm text-brand-900">Ananya Kulkarni</div>
+                        <div class="text-xs text-brand-800/60">Shivajinagar, Pune</div>
+                    </div>
+                </div>
+
+                <div class="bg-brand-50 p-6 sm:p-8 rounded-xl border border-brand-200 flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <div class="flex text-brand-500 gap-1">
+                            <template x-for="i in 5">
+                                <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            </template>
+                        </div>
+                        <p class="text-sm text-brand-800 italic leading-relaxed">
+                            "Ordered the gift packaging for my friend's birthday. Fiaa personally coordinated on WhatsApp and sent it directly to Viman Nagar in 2 hours."
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-brand-200">
+                        <div class="font-bold text-sm text-brand-900">Rhea Deshmukh</div>
+                        <div class="text-xs text-brand-800/60">Viman Nagar, Pune</div>
+                    </div>
+                </div>
+
+                <div class="bg-brand-50 p-6 sm:p-8 rounded-xl border border-brand-200 flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <div class="flex text-brand-500 gap-1">
+                            <template x-for="i in 5">
+                                <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            </template>
+                        </div>
+                        <p class="text-sm text-brand-800 italic leading-relaxed">
+                            "Finding authentic non-tarnish hoops for under ₹200 is almost impossible in Pune markets. Glow & Grace quality blew me away."
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-brand-200">
+                        <div class="font-bold text-sm text-brand-900">Priya Sharma</div>
+                        <div class="text-xs text-brand-800/60">Kothrud, Pune</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- TRANSPARENT PRICE LIST -->
+    <section id="pricing" class="py-20">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl sm:text-4xl font-serif font-bold text-brand-900">Transparent Price List</h2>
+                <p class="text-brand-800/70 text-sm sm:text-base mt-2">No extra fees or hidden charges.</p>
+            </div>
+
+            <div class="bg-white rounded-2xl border border-brand-200 p-6 sm:p-10 shadow-sm space-y-4">
+                <template x-for="item in products" :key="item.id">
+                    <div class="flex justify-between items-center py-3 border-b border-dashed border-brand-200 last:border-none">
+                        <div>
+                            <span class="font-semibold text-brand-900 text-sm sm:text-base" x-text="item.name"></span>
+                            <p class="text-xs text-brand-800/60" x-text="item.categoryLabel"></p>
+                        </div>
+                        <div class="font-serif font-bold text-xl text-brand-500" x-text="'₹' + item.price"></div>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT & LOCATION -->
+    <section id="contact" class="py-20 bg-white border-t border-brand-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                
+                <!-- Embedded Map -->
+                <div class="rounded-2xl overflow-hidden border border-brand-200 h-[380px] shadow-sm">
+                    <iframe class="w-full h-full" src="https://maps.google.com/maps?q=Pune%2C%20Maharashtra%2C%20India&output=embed" loading="lazy"></iframe>
+                </div>
+
+                <!-- Studio Hours & Info -->
+                <div class="space-y-6">
+                    <div>
+                        <h2 class="text-3xl font-serif font-bold text-brand-900">Visit Our Pune Studio</h2>
+                        <p class="text-brand-800/70 text-sm mt-1">Pune, Maharashtra, India</p>
+                    </div>
+
+                    <!-- Hours Table -->
+                    <div class="bg-brand-50 p-6 rounded-xl border border-brand-200 space-y-3">
+                        <h4 class="font-bold text-xs uppercase tracking-wider text-brand-500">Operating Hours</h4>
+                        <div class="flex justify-between text-sm border-b border-brand-200/60 pb-2">
+                            <span class="text-brand-800">Monday – Saturday</span>
+                            <span class="font-bold text-brand-900">10:00 AM – 8:00 PM</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-brand-800">Sunday</span>
+                            <span class="font-bold text-brand-900">11:00 AM – 5:00 PM</span>
+                        </div>
+                    </div>
+
+                    <!-- Direct Contact Buttons -->
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="tel:+918308408093" class="flex-1 py-3 px-4 rounded border border-brand-500 text-brand-900 font-semibold text-sm flex items-center justify-center gap-2 hover:bg-brand-500 hover:text-white transition-all">
+                            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                            Call: 8308408093
+                        </a>
+                        <a href="https://wa.me/918308408093?text=Hi%20Glow%20%26%20Grace%2C%20I%20want%20to%20know%20your%20exact%20studio%20location." class="flex-1 py-3 px-4 rounded bg-wa-500 hover:bg-wa-600 text-white font-semibold text-sm flex items-center justify-center gap-2 transition-all">
+                            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2z"/></svg>
+                            WhatsApp Location
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-brand-900 text-brand-100 py-12 border-t border-brand-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <div class="space-y-3">
+                    <span class="font-serif text-2xl font-bold text-brand-500">GLOW & GRACE</span>
+                    <p class="text-xs text-brand-100/70 max-w-sm">Shine Every Day, Tarnish Never! Premium everyday minimalist jewellery in Pune, Maharashtra.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-xs uppercase tracking-wider text-brand-300 mb-3">Quick Navigation</h4>
+                    <ul class="space-y-2 text-xs text-brand-100/70">
+                        <li><a href="#hero" class="hover:text-white">Home</a></li>
+                        <li><a href="#collection" class="hover:text-white">Collection</a></li>
+                        <li><a href="#about" class="hover:text-white">About Fiaa</a></li>
+                        <li><a href="#pricing" class="hover:text-white">Prices</a></li>
+                    </ul>
+                </div>
+                <div class="space-y-3">
+                    <h4 class="font-bold text-xs uppercase tracking-wider text-brand-300">Instagram</h4>
+                    <p class="text-xs text-brand-100/70">@glowandgrace.jewels</p>
+                    <a href="https://wa.me/918308408093?text=Hi%20Glow%20%26%20Grace%2C%20I%20want%20to%20order%20jewellery." class="inline-block py-2 px-4 rounded bg-wa-500 hover:bg-wa-600 text-white font-semibold text-xs transition-colors">
+                        Quick Order on WhatsApp
+                    </a>
+                </div>
+            </div>
+
+            <div class="pt-8 border-t border-brand-800 text-center text-xs text-brand-100/50 space-y-2">
+                <p>&copy; <span x-text="new Date().getFullYear()"></span> Glow & Grace Jewellery. Pune, Maharashtra.</p>
+                <div class="built-with-line">built with ❤️ by 21.coders</div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SLIDE-OVER SHOPPING BAG -->
+    <div x-show="cartOpen" class="fixed inset-0 z-50 overflow-hidden" x-transition.opacity>
+        <div class="absolute inset-0 bg-brand-900/60 backdrop-blur-sm" @click="cartOpen = false"></div>
+        <div class="fixed inset-y-0 right-0 max-w-full flex pl-10">
+            <div class="w-screen max-w-md bg-white border-l border-brand-200 flex flex-col justify-between">
+                
+                <div class="p-6 border-b border-brand-200 flex items-center justify-between">
+                    <h3 class="font-serif font-bold text-xl text-brand-900">Your Shopping Bag (<span x-text="cart.length"></span>)</h3>
+                    <button @click="cartOpen = false" class="p-2 text-brand-900 hover:text-brand-500">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
+                </div>
+
+                <div class="p-6 flex-1 overflow-y-auto space-y-4">
+                    <template x-if="cart.length === 0">
+                        <div class="text-center py-12 text-brand-800/50 text-sm">Your shopping bag is empty.</div>
+                    </template>
+                    <template x-for="(item, index) in cart" :key="index">
+                        <div class="flex items-center gap-4 p-3 bg-brand-50 rounded-xl border border-brand-200">
+                            <img :src="item.image" :alt="item.name" class="w-16 h-16 object-cover rounded-lg">
+                            <div class="flex-1">
+                                <h4 class="font-bold text-xs text-brand-900" x-text="item.name"></h4>
+                                <span class="text-xs text-brand-500 font-bold" x-text="'₹' + item.price"></span>
+                            </div>
+                            <button @click="cart.splice(index, 1)" class="text-xs text-red-500 hover:underline">Remove</button>
+                        </div>
+                    </template>
+                </div>
+
+                <div class="p-6 border-t border-brand-200 bg-brand-50 space-y-4">
+                    <div class="flex justify-between font-bold text-brand-900 text-base">
+                        <span>Total Amount</span>
+                        <span x-text="'₹' + cartTotal"></span>
+                    </div>
+                    <a :href="getCartWhatsAppUrl()" 
+                       class="w-full py-4 rounded bg-wa-500 hover:bg-wa-600 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all">
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2z"/></svg>
+                        Send Order to Fiaa on WhatsApp
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- STICKY MOBILE BOTTOM BAR (≤768px) -->
+    <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-brand-200 p-2.5 grid grid-cols-2 gap-2 z-40 md:hidden shadow-lg">
+        <a href="tel:+918308408093" class="py-2.5 rounded border border-brand-500 text-brand-900 font-bold text-xs flex items-center justify-center gap-2">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+            Call
+        </a>
+        <a href="https://wa.me/918308408093?text=Hi%20Glow%20%26%20Grace%2C%20I%20want%20to%20order%20jewellery." class="py-2.5 rounded bg-wa-500 text-white font-bold text-xs flex items-center justify-center gap-2">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2z"/></svg>
+            WhatsApp
+        </a>
+    </div>
+
+    <!-- Alpine Logic Initialization -->
+    <script>
+        function appState() {
+            return {
+                mobileMenu: false,
+                cartOpen: false,
+                activeCategory: 'all',
+                activeLightbox: null,
+                cart: [],
+                categories: [
+                    { id: 'all', name: 'All Pieces' },
+                    { id: 'necklaces', name: 'Necklaces' },
+                    { id: 'earrings', name: 'Earrings' },
+                    { id: 'bracelets', name: 'Bracelets & Rings' },
+                    { id: 'gifts', name: 'Gift Sets' },
+                ],
+                products: [
+                    { id: 1, name: 'Anti-Tarnish Gold-Plated Necklace', category: 'necklaces', categoryLabel: 'Necklace', price: 399, image: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800&auto=format&fit=crop', description: 'Sleek 18k gold-plated chain built for daily wear without losing luster.' },
+                    { id: 2, name: 'Minimalist Pendant Necklace', category: 'necklaces', categoryLabel: 'Necklace', price: 299, image: 'https://images.unsplash.com/photo-1611591475281-8d2823228e3f?w=800&auto=format&fit=crop', description: 'Delicate chain with a chic, subtle pendant suitable for college or office.' },
+                    { id: 3, name: 'Anti-Tarnish Hoop Earrings', category: 'earrings', categoryLabel: 'Earrings', price: 199, image: 'https://images.unsplash.com/photo-1630019852942-f89202989a59?w=800&auto=format&fit=crop', description: 'Lightweight gold hoops that never fade, perfect for sensitive ears.' },
+                    { id: 4, name: 'Gold-Plated Stud Earrings', category: 'earrings', categoryLabel: 'Earrings', price: 149, image: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=800&auto=format&fit=crop', description: 'Classy everyday studs offering a subtle shine to complement any outfit.' },
+                    { id: 5, name: 'Elegance Bracelet', category: 'bracelets', categoryLabel: 'Bracelet', price: 249, image: 'https://images.unsplash.com/photo-1611591475281-8d2823228e3f?w=800&auto=format&fit=crop', description: 'Sweatproof wristwear designed for seamless everyday stackability.' },
+                    { id: 6, name: 'Adjustable Gold-Plated Ring', category: 'bracelets', categoryLabel: 'Ring', price: 149, image: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800&auto=format&fit=crop', description: 'Free-size stylish ring designed to fit any finger comfortably.' },
+                    { id: 7, name: 'Layered Necklace Set', category: 'gifts', categoryLabel: 'Set', price: 499, image: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800&auto=format&fit=crop', description: 'Pre-curated multi-chain set for effortless statement styling.' },
+                    { id: 8, name: 'Jewellery Gift Box', category: 'gifts', categoryLabel: 'Gift Box', price: 99, image: 'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=800&auto=format&fit=crop', description: 'Luxury aesthetic gift wrap box complete with custom velvet pouch.' }
+                ],
+                galleryPhotos: [
+                    'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800&auto=format&fit=crop',
+                    'https://images.unsplash.com/photo-1611591475281-8d2823228e3f?w=800&auto=format&fit=crop',
+                    'https://images.unsplash.com/photo-1630019852942-f89202989a59?w=800&auto=format&fit=crop',
+                    'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=800&auto=format&fit=crop',
+                    'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800&auto=format&fit=crop',
+                    'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=800&auto=format&fit=crop'
+                ],
+                get filteredProducts() {
+                    if (this.activeCategory === 'all') return this.products;
+                    return this.products.filter(p => p.category === this.activeCategory);
+                },
+                get cartTotal() {
+                    return this.cart.reduce((sum, item) => sum + item.price, 0);
+                },
+                addToCart(product) {
+                    this.cart.push(product);
+                    this.cartOpen = true;
+                },
+                getCartWhatsAppUrl() {
+                    if (this.cart.length === 0) return 'https://wa.me/918308408093?text=Hi%20Fiaa%2C%20I%20want%20to%20place%20an%20order.';
+                    const itemsList = this.cart.map(i => `- ${i.name} (₹${i.price})`).join('%0A');
+                    const message = `Hi Fiaa, I want to place an order for:%0A${itemsList}%0A%0ATotal Amount: ₹${this.cartTotal}%0A%0APlease let me know delivery timelines in Pune.`;
+                    return `https://wa.me/918308408093?text=${message}`;
+                }
+            }
+        }
+    </script>
+</body>
+</html>
